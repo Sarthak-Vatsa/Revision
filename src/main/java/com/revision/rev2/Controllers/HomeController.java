@@ -29,4 +29,17 @@ public class HomeController
         homeService.registerUser(user);
         return ResponseEntity.ok("User registered successfully");
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Users user)
+    {
+        boolean status = homeService.loginUser(user);
+        if(status)
+        {
+            return ResponseEntity.ok("Login successful");
+        }
+        else{
+            return ResponseEntity.status(401).body("Invalid credentials");
+        }
+    }
 }

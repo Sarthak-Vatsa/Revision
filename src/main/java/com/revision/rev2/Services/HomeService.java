@@ -19,4 +19,13 @@ public class HomeService
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
+
+    public boolean loginUser(Users user)
+    {
+        Users existingUser = userRepo.findByUsername(user.getUsername());
+        if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            return true;
+        }
+        return false;
+    }
 }
